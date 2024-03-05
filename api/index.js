@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js"
+import cookieParser from "cookie-parser";
 //we use dotenv to use .env file 
 //to use import in backend we have to add "type": "module" in package.json file
 
@@ -15,6 +16,8 @@ mongoose.connect(process.env.MONGO).then(()=>{
 
 const app = express();
 app.use(express.json());
+
+app.use(cookieParser());
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
