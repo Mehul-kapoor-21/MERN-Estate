@@ -5,6 +5,7 @@ dotenv.config();
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js"
 import cookieParser from "cookie-parser";
+import listingrouter from "./routes/listing.route.js";
 //we use dotenv to use .env file 
 //to use import in backend we have to add "type": "module" in package.json file
 
@@ -26,6 +27,7 @@ app.listen(3000, () => {
 
 app.use('/api/user',userRouter);
 app.use('/api/auth',authRouter);
+app.use('/api/listing',listingrouter);
 
 app.use((err,req,res,next)=>{
   const statusCode = err.statusCode || 500;
