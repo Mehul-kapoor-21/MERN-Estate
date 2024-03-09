@@ -16,8 +16,9 @@ import {
   deleteUserSuccess,
   signOutUserFailure,
   signOutUserStart,
-  signOutUserSuccess
+  signOutUserSuccess,
 } from "../redux/user/userSlice";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -66,11 +67,11 @@ export default function Profile() {
   const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`,{
-        method: 'DELETE',
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
       });
       const data = await res.json();
-      if(data.success === false){
+      if (data.success === false) {
         dispatch(deleteUserFailure(data.message));
         return;
       }
@@ -80,12 +81,12 @@ export default function Profile() {
     }
   };
 
-  const handleSignOut = async ()=>{
+  const handleSignOut = async () => {
     try {
       dispatch(signOutUserStart());
-      const res = await fetch('/api/auth/signout');
+      const res = await fetch("/api/auth/signout");
       const data = await res.json();
-      if(data.success=== false){
+      if (data.success === false) {
         dispatch(signOutUserFailure(data.message));
         return;
       }
@@ -93,7 +94,7 @@ export default function Profile() {
     } catch (error) {
       dispatch(signOutUserFailure(error.message));
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -178,6 +179,7 @@ export default function Profile() {
         >
           {loading ? "loading..." : "Update"}
         </button>
+        <Link className="bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95" to={"/create-listing"}>Create Listing</Link>
       </form>
       <div className="flex justify-between mt-5">
         <span
@@ -186,7 +188,9 @@ export default function Profile() {
         >
           Delete account
         </span>
-        <span onClick={handleSignOut} className="text-red-700 cursor-pointer">Sign out</span>
+        <span onClick={handleSignOut} className="text-red-700 cursor-pointer">
+          Sign out
+        </span>
       </div>
       <p className="text-red-700 mt-5">{error ? error : ""}</p>
       <p className="text-green-700 mt-5">
